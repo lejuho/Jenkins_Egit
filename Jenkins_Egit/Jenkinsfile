@@ -19,8 +19,6 @@ pipeline {
             steps {
                 dir('Jenkins_Egit') {
                     sh '''
-                    	rm -rf ${CLASS_DIR}
-                    	rm -rf ${REPORT_DIR}
                         mkdir -p ${CLASS_DIR}
                         mkdir -p ${REPORT_DIR}
                         mkdir -p lib
@@ -69,11 +67,34 @@ pipeline {
             junit "Jenkins_Egit/${REPORT_DIR}/**/*.xml"
             archiveArtifacts artifacts: "Jenkins_Egit/${REPORT_DIR}/**/*", allowEmptyArchive: true
         }
-        failure {
-            echo "Build or test failed"
-        }
         success {
             echo "Build and test succeeded!"
+            mail to: 'zedd1324@gmail.com',
+                 subject: "✅ Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: """
+						빌드가 성공했습니다.
+						
+						Job: ${env.JOB_NAME}
+						Build Number: #${env.BUILD_NUMBER}
+						URL: ${env.BUILD_URL}
+						
+						테스트 결과는 위 URL에서 확인할 수 있습니다.
+						"""
+        }
+        failure {
+            echo "Build or test failed"
+            mail to: 'zedd1324@gmail.com',
+                 subject: "❌ Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: """
+						빌드가 실패했습니다.
+						
+						Job: ${env.JOB_NAME}
+						Build Number: #${env.BUILD_NUMBER}
+						URL: ${env.BUILD_URL}
+						
+						Console Output에서 실패 원인을 확인하세요.
+						"""
         }
     }
+}
 }
