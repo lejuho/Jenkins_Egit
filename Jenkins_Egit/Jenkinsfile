@@ -19,6 +19,8 @@ pipeline {
             steps {
                 dir('Jenkins_Egit') {
                     sh '''
+                    	rm -rf ${CLASS_DIR}
+                    	rm -rf ${REPORT_DIR}
                         mkdir -p ${CLASS_DIR}
                         mkdir -p ${REPORT_DIR}
                         mkdir -p lib
