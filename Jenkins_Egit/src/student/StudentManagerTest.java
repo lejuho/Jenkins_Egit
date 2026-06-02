@@ -14,7 +14,7 @@ public class StudentManagerTest {
 
     @BeforeAll
     public static void setUp(){
-        manager = new StudentManager();
+        manager = new StudentManager(); // 테스트
     }
 
     @Test
