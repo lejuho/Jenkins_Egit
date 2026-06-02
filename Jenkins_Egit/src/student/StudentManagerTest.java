@@ -14,7 +14,7 @@ public class StudentManagerTest {
 
     @BeforeAll
     public static void setUp(){
-        manager = new StudentManager();
+        manager = new StudentManager(); // StudentManager을 새로 생성
     }
 
     @Test
