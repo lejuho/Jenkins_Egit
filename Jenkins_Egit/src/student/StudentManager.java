@@ -25,4 +25,6 @@ public class StudentManager {
     public boolean hasStudent(String name) {
         return students.contains(name);
     }
+    
+    // 커밋용 주석
 }
